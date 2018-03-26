@@ -9,7 +9,7 @@
 import SpriteKit
 
 class Ball: SKSpriteNode {
-    static let maxSpeed: CGFloat = 25.0
+    static let maxSpeed: CGFloat = 30.0
     var xVel: CGFloat = 0.0
     var yVel: CGFloat = 0.0
     
