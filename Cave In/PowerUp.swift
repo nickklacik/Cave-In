@@ -9,5 +9,10 @@
 import SpriteKit
 
 class PowerUp: SKSpriteNode {
+    var gridX = 0
+    var gridY = 0
+}
+
+class NewBall: PowerUp {
     
 }

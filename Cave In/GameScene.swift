@@ -15,8 +15,10 @@ class GameScene: SKScene {
     var startPosition: CGFloat = 0
     var blocks: [Block] = []
     var balls: [Ball] = []
+    var powerUps: [PowerUp] = []
     var startXVel: CGFloat = 0.0
     var startYVel: CGFloat = 0.0
+    var panOrigin = CGPoint()
     
     override func didMove(to view: SKView) {
         anchorPoint = CGPoint.zero
@@ -33,13 +35,18 @@ class GameScene: SKScene {
         let tapGesture = UITapGestureRecognizer(target: self, action: tapMethod)
         view.addGestureRecognizer(tapGesture)
         
+        let panMethod = #selector(GameScene.handlePan(panGesture:))
+        let panGesture = UIPanGestureRecognizer(target: self, action: panMethod)
+        view.addGestureRecognizer(panGesture)
+        
         startGame()
     }
     
     func startGame() {
         ballCount = 1
         startPosition = frame.midX
-        spawnBlocks();
+        spawnBlocks()
+        spawnPowerUps()
     }
     
     func spawnBlocks() {
@@ -52,14 +59,13 @@ class GameScene: SKScene {
         while(blocksSpawned < totalBlocks) {
             let spawnChance = arc4random_uniform(8)+1
             print("spawnChance: " + String(spawnChance))
-            if spawnChance <= totalBlocks && !isDuplicate(at: x) {
+            if spawnChance <= totalBlocks && !isEmpty(at: x) {
                 print("x " + String(x))
                 spawnBlock(at: x, min: minHealth, max: maxHealth)
                 blocksSpawned += 1
             }
             x = (x+1) % 8
         }
-        
     }
     
     func spawnBlock(at x: Int, min minHealth: Int, max maxHealth: Int) {
@@ -73,14 +79,33 @@ class GameScene: SKScene {
         addChild(block)
     }
     
-    func isDuplicate(at x: Int) -> Bool{
+    func spawnPowerUps() {
+        for x in 0..<8 {
+            if isEmpty(at: x) {
+                let spawnChance = arc4random_uniform(100)
+                print("spawnChance: " + String(spawnChance))
+                if spawnChance < 25 {
+                    // spawn New Ball
+                }
+            }
+        }
+    }
+    
+    
+    func isEmpty(at x: Int) -> Bool {
         for block in blocks {
             if block.gridY == 0 && block.gridX == x {
-                return true
+                return false
             }
         }
         
-        return false
+        for powerUp in powerUps {
+            if powerUp.gridY == 0 && powerUp.gridX == x {
+                return false
+            }
+        }
+        
+        return true
     }
     
     func spawnBall() {
@@ -155,14 +180,34 @@ class GameScene: SKScene {
     }
     
     @objc func handleTap(tapGesture: UITapGestureRecognizer) {
-        let tapLocation = tapGesture.location(in: tapGesture.view)
-        print(tapLocation)
-        let dY = frame.maxY - tapLocation.y
-        let dX = tapLocation.x - startPosition
-        let theta = atan(dX/dY)
-        startXVel = Ball.maxSpeed * sin(theta)
-        startYVel = Ball.maxSpeed * cos(theta)
-        spawnBall()
+//        let tapLocation = tapGesture.location(in: tapGesture.view)
+//        print(tapLocation)
+//        let dY = frame.maxY - tapLocation.y
+//        let dX = tapLocation.x - startPosition
+//        let theta = atan(dX/dY)
+//        startXVel = Ball.maxSpeed * sin(theta)
+//        startYVel = Ball.maxSpeed * cos(theta)
+//        spawnBall()
+    }
+    
+    @objc func handlePan(panGesture: UIPanGestureRecognizer) {
+        if panGesture.state == .began {
+            panOrigin = panGesture.location(in: panGesture.view)
+            //Create targeter
+        }
+        else if panGesture.state == .changed {
+            //Update targeter
+        }
+        else if panGesture.state == .ended {
+            // shoot ball
+            let panEndLocation = panGesture.location(in: panGesture.view)
+            let dY = panEndLocation.y - panOrigin.y
+            let dX = panOrigin.x - panEndLocation.x
+            let theta = atan(dX/dY)
+            startXVel = Ball.maxSpeed * sin(theta)
+            startYVel = Ball.maxSpeed * cos(theta)
+            spawnBall()
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
