@@ -10,6 +10,7 @@
 		F853C8F12065553D002B6C25 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853C8F02065553D002B6C25 /* Block.swift */; };
 		F853C8F3206555B8002B6C25 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853C8F2206555B8002B6C25 /* Ball.swift */; };
 		F853C8F520655636002B6C25 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853C8F420655636002B6C25 /* PowerUp.swift */; };
+		F853C8F7206D77F3002B6C25 /* BallFlying.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F853C8F6206D77F2002B6C25 /* BallFlying.atlas */; };
 		F8AE978C2046170D0017E4F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE978B2046170D0017E4F9 /* AppDelegate.swift */; };
 		F8AE978E2046170D0017E4F9 /* SplashScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F8AE978D2046170D0017E4F9 /* SplashScene.sks */; };
 		F8AE97902046170D0017E4F9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F8AE978F2046170D0017E4F9 /* Actions.sks */; };
@@ -18,8 +19,8 @@
 		F8AE97972046170E0017E4F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8AE97952046170E0017E4F9 /* Main.storyboard */; };
 		F8AE97992046170E0017E4F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8AE97982046170E0017E4F9 /* Assets.xcassets */; };
 		F8AE979C2046170E0017E4F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8AE979A2046170E0017E4F9 /* LaunchScreen.storyboard */; };
-		F8AE97A72046170E0017E4F9 /* Cave_InTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE97A62046170E0017E4F9 /* Cave_InTests.swift */; };
-		F8AE97B22046170F0017E4F9 /* Cave_InUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE97B12046170F0017E4F9 /* Cave_InUITests.swift */; };
+		F8AE97A72046170E0017E4F9 /* CaveInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE97A62046170E0017E4F9 /* CaveInTests.swift */; };
+		F8AE97B22046170F0017E4F9 /* CaveInUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE97B12046170F0017E4F9 /* CaveInUITests.swift */; };
 		F8C15299204F51740005546A /* SplashScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C15298204F51740005546A /* SplashScene.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +45,8 @@
 		F853C8F02065553D002B6C25 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F853C8F2206555B8002B6C25 /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		F853C8F420655636002B6C25 /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
-		F8AE97882046170D0017E4F9 /* Cave In.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cave In.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F853C8F6206D77F2002B6C25 /* BallFlying.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = BallFlying.atlas; path = ../../BallFlying.atlas; sourceTree = "<group>"; };
+		F8AE97882046170D0017E4F9 /* CaveIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8AE978B2046170D0017E4F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8AE978D2046170D0017E4F9 /* SplashScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SplashScene.sks; sourceTree = "<group>"; };
 		F8AE978F2046170D0017E4F9 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -54,11 +56,11 @@
 		F8AE97982046170E0017E4F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8AE979B2046170E0017E4F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8AE979D2046170E0017E4F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8AE97A22046170E0017E4F9 /* Cave InTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cave InTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8AE97A62046170E0017E4F9 /* Cave_InTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cave_InTests.swift; sourceTree = "<group>"; };
+		F8AE97A22046170E0017E4F9 /* CaveInTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaveInTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8AE97A62046170E0017E4F9 /* CaveInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaveInTests.swift; sourceTree = "<group>"; };
 		F8AE97A82046170E0017E4F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8AE97AD2046170E0017E4F9 /* Cave InUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cave InUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8AE97B12046170F0017E4F9 /* Cave_InUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cave_InUITests.swift; sourceTree = "<group>"; };
+		F8AE97AD2046170E0017E4F9 /* CaveInUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaveInUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8AE97B12046170F0017E4F9 /* CaveInUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaveInUITests.swift; sourceTree = "<group>"; };
 		F8AE97B32046170F0017E4F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8C15298204F51740005546A /* SplashScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,9 +103,9 @@
 		F8AE97892046170D0017E4F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8AE97882046170D0017E4F9 /* Cave In.app */,
-				F8AE97A22046170E0017E4F9 /* Cave InTests.xctest */,
-				F8AE97AD2046170E0017E4F9 /* Cave InUITests.xctest */,
+				F8AE97882046170D0017E4F9 /* CaveIn.app */,
+				F8AE97A22046170E0017E4F9 /* CaveInTests.xctest */,
+				F8AE97AD2046170E0017E4F9 /* CaveInUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +113,7 @@
 		F8AE978A2046170D0017E4F9 /* Cave In */ = {
 			isa = PBXGroup;
 			children = (
+				F853C8F6206D77F2002B6C25 /* BallFlying.atlas */,
 				F8AE978B2046170D0017E4F9 /* AppDelegate.swift */,
 				F8AE978D2046170D0017E4F9 /* SplashScene.sks */,
 				F8AE978F2046170D0017E4F9 /* Actions.sks */,
@@ -131,7 +134,7 @@
 		F8AE97A52046170E0017E4F9 /* Cave InTests */ = {
 			isa = PBXGroup;
 			children = (
-				F8AE97A62046170E0017E4F9 /* Cave_InTests.swift */,
+				F8AE97A62046170E0017E4F9 /* CaveInTests.swift */,
 				F8AE97A82046170E0017E4F9 /* Info.plist */,
 			);
 			path = "Cave InTests";
@@ -140,7 +143,7 @@
 		F8AE97B02046170E0017E4F9 /* Cave InUITests */ = {
 			isa = PBXGroup;
 			children = (
-				F8AE97B12046170F0017E4F9 /* Cave_InUITests.swift */,
+				F8AE97B12046170F0017E4F9 /* CaveInUITests.swift */,
 				F8AE97B32046170F0017E4F9 /* Info.plist */,
 			);
 			path = "Cave InUITests";
@@ -149,9 +152,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F8AE97872046170D0017E4F9 /* Cave In */ = {
+		F8AE97872046170D0017E4F9 /* CaveIn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8AE97B62046170F0017E4F9 /* Build configuration list for PBXNativeTarget "Cave In" */;
+			buildConfigurationList = F8AE97B62046170F0017E4F9 /* Build configuration list for PBXNativeTarget "CaveIn" */;
 			buildPhases = (
 				F8AE97842046170D0017E4F9 /* Sources */,
 				F8AE97852046170D0017E4F9 /* Frameworks */,
@@ -161,14 +164,14 @@
 			);
 			dependencies = (
 			);
-			name = "Cave In";
+			name = CaveIn;
 			productName = "Cave In";
-			productReference = F8AE97882046170D0017E4F9 /* Cave In.app */;
+			productReference = F8AE97882046170D0017E4F9 /* CaveIn.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F8AE97A12046170E0017E4F9 /* Cave InTests */ = {
+		F8AE97A12046170E0017E4F9 /* CaveInTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8AE97B92046170F0017E4F9 /* Build configuration list for PBXNativeTarget "Cave InTests" */;
+			buildConfigurationList = F8AE97B92046170F0017E4F9 /* Build configuration list for PBXNativeTarget "CaveInTests" */;
 			buildPhases = (
 				F8AE979E2046170E0017E4F9 /* Sources */,
 				F8AE979F2046170E0017E4F9 /* Frameworks */,
@@ -179,14 +182,14 @@
 			dependencies = (
 				F8AE97A42046170E0017E4F9 /* PBXTargetDependency */,
 			);
-			name = "Cave InTests";
+			name = CaveInTests;
 			productName = "Cave InTests";
-			productReference = F8AE97A22046170E0017E4F9 /* Cave InTests.xctest */;
+			productReference = F8AE97A22046170E0017E4F9 /* CaveInTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		F8AE97AC2046170E0017E4F9 /* Cave InUITests */ = {
+		F8AE97AC2046170E0017E4F9 /* CaveInUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F8AE97BC2046170F0017E4F9 /* Build configuration list for PBXNativeTarget "Cave InUITests" */;
+			buildConfigurationList = F8AE97BC2046170F0017E4F9 /* Build configuration list for PBXNativeTarget "CaveInUITests" */;
 			buildPhases = (
 				F8AE97A92046170E0017E4F9 /* Sources */,
 				F8AE97AA2046170E0017E4F9 /* Frameworks */,
@@ -197,9 +200,9 @@
 			dependencies = (
 				F8AE97AF2046170E0017E4F9 /* PBXTargetDependency */,
 			);
-			name = "Cave InUITests";
+			name = CaveInUITests;
 			productName = "Cave InUITests";
-			productReference = F8AE97AD2046170E0017E4F9 /* Cave InUITests.xctest */;
+			productReference = F8AE97AD2046170E0017E4F9 /* CaveInUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -228,7 +231,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F8AE97832046170D0017E4F9 /* Build configuration list for PBXProject "Cave In" */;
+			buildConfigurationList = F8AE97832046170D0017E4F9 /* Build configuration list for PBXProject "CaveIn" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -241,9 +244,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F8AE97872046170D0017E4F9 /* Cave In */,
-				F8AE97A12046170E0017E4F9 /* Cave InTests */,
-				F8AE97AC2046170E0017E4F9 /* Cave InUITests */,
+				F8AE97872046170D0017E4F9 /* CaveIn */,
+				F8AE97A12046170E0017E4F9 /* CaveInTests */,
+				F8AE97AC2046170E0017E4F9 /* CaveInUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,6 +259,7 @@
 				F8AE97972046170E0017E4F9 /* Main.storyboard in Resources */,
 				F8AE978E2046170D0017E4F9 /* SplashScene.sks in Resources */,
 				F8AE97992046170E0017E4F9 /* Assets.xcassets in Resources */,
+				F853C8F7206D77F3002B6C25 /* BallFlying.atlas in Resources */,
 				F8AE979C2046170E0017E4F9 /* LaunchScreen.storyboard in Resources */,
 				F8AE97902046170D0017E4F9 /* Actions.sks in Resources */,
 			);
@@ -296,7 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8AE97A72046170E0017E4F9 /* Cave_InTests.swift in Sources */,
+				F8AE97A72046170E0017E4F9 /* CaveInTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8AE97B22046170F0017E4F9 /* Cave_InUITests.swift in Sources */,
+				F8AE97B22046170F0017E4F9 /* CaveInUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,12 +317,12 @@
 /* Begin PBXTargetDependency section */
 		F8AE97A42046170E0017E4F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F8AE97872046170D0017E4F9 /* Cave In */;
+			target = F8AE97872046170D0017E4F9 /* CaveIn */;
 			targetProxy = F8AE97A32046170E0017E4F9 /* PBXContainerItemProxy */;
 		};
 		F8AE97AF2046170E0017E4F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F8AE97872046170D0017E4F9 /* Cave In */;
+			target = F8AE97872046170D0017E4F9 /* CaveIn */;
 			targetProxy = F8AE97AE2046170E0017E4F9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -490,7 +494,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cave In.app/Cave In";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CaveIn.temp_caseinsensitive_rename.app/CaveIn.temp_caseinsensitive_rename";
 			};
 			name = Debug;
 		};
@@ -506,7 +510,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cave In.app/Cave In";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CaveIn.temp_caseinsensitive_rename.app/CaveIn.temp_caseinsensitive_rename";
 			};
 			name = Release;
 		};
@@ -543,7 +547,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F8AE97832046170D0017E4F9 /* Build configuration list for PBXProject "Cave In" */ = {
+		F8AE97832046170D0017E4F9 /* Build configuration list for PBXProject "CaveIn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8AE97B42046170F0017E4F9 /* Debug */,
@@ -552,7 +556,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8AE97B62046170F0017E4F9 /* Build configuration list for PBXNativeTarget "Cave In" */ = {
+		F8AE97B62046170F0017E4F9 /* Build configuration list for PBXNativeTarget "CaveIn" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8AE97B72046170F0017E4F9 /* Debug */,
@@ -561,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8AE97B92046170F0017E4F9 /* Build configuration list for PBXNativeTarget "Cave InTests" */ = {
+		F8AE97B92046170F0017E4F9 /* Build configuration list for PBXNativeTarget "CaveInTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8AE97BA2046170F0017E4F9 /* Debug */,
@@ -570,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F8AE97BC2046170F0017E4F9 /* Build configuration list for PBXNativeTarget "Cave InUITests" */ = {
+		F8AE97BC2046170F0017E4F9 /* Build configuration list for PBXNativeTarget "CaveInUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F8AE97BD2046170F0017E4F9 /* Debug */,

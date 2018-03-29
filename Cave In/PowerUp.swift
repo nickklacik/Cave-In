@@ -11,12 +11,12 @@ import SpriteKit
 class PowerUp: SKSpriteNode {
     var gridX = 0
     var gridY = 0
-    var type = powerUpType.newBall
-    
-    enum powerUpType {
+    var type = PowerUpType.newBall
+
+    enum PowerUpType {
         case newBall
     }
-    
+
     func updatePosition(inside gameFrame: CGRect) {
         position.x = CGFloat(52 * gridX + 25)
         position.y = gameFrame.maxY - CGFloat(52 * gridY + 25)

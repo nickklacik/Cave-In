@@ -9,7 +9,7 @@
 import SpriteKit
 
 class SplashScene: SKScene {
-    
+
     override func didMove(to view: SKView) {
         anchorPoint = CGPoint.zero
         let background = SKSpriteNode(imageNamed: "background")
@@ -18,32 +18,32 @@ class SplashScene: SKScene {
         background.position = CGPoint(x: xMid, y: yMid)
         background.size = frame.size
         addChild(background)
-        
+
         let tapMethod = #selector(SplashScene.handleTap(tapGesture:))
         let tapGesture = UITapGestureRecognizer(target: self, action: tapMethod)
         view.addGestureRecognizer(tapGesture)
-        
+
         let title = SKLabelNode(fontNamed: "Arial")
-        title.text = "Cave In";
+        title.text = "Cave In"
         title.fontSize = 64
         title.fontColor = SKColor.black
         title.position = CGPoint(x: xMid, y: yMid)
         title.zPosition = 10
         addChild(title)
-        
+
         let start = SKLabelNode(fontNamed: "Arial")
-        start.text = "Tap to Start";
+        start.text = "Tap to Start"
         start.fontSize = 32
         start.fontColor = SKColor.black
-        start.position = CGPoint(x: xMid, y: (yMid - 100) )
+        start.position = CGPoint(x: xMid, y: (yMid - 100))
         start.zPosition = 10
         addChild(start)
     }
-    
+
     @objc func handleTap(tapGesture: UITapGestureRecognizer) {
         goNext(scene: GameScene())
     }
-    
+
     func goNext(scene: SKScene) {
         // view is an SKView? so we have to check
         if let view = self.view {
@@ -54,7 +54,7 @@ class SplashScene: SKScene {
             let height = view.bounds.height
             scene.size = CGSize(width: width, height: height)
             // let reveal = SKTransition.reveal(with: .down, duration:5)
-            let reveal = SKTransition.crossFade(withDuration: 5)
+            let reveal = SKTransition.crossFade(withDuration: 2)
             view.presentScene(scene, transition: reveal)
             view.ignoresSiblingOrder = true
             view.showsFPS = true

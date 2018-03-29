@@ -9,8 +9,14 @@
 import SpriteKit
 import GameplayKit
 
+enum GameState {
+    case waiting
+    case running
+    case ended
+    case gameOver
+}
+
 class GameScene: SKScene {
-    
     var ballCount = 1
     var startPosition: CGFloat = 0
     var blocks: [Block] = []
@@ -20,15 +26,8 @@ class GameScene: SKScene {
     var startYVel: CGFloat = 0.0
     var panOrigin = CGPoint()
     var round: UInt32 = 1
-    var state = gameState.ended
-    
-    enum gameState {
-        case waiting
-        case running
-        case ended
-        case gameOver
-    }
-    
+    var state = GameState.ended
+
     override func didMove(to view: SKView) {
         anchorPoint = CGPoint.zero
         let background = SKSpriteNode(imageNamed: "background")
@@ -39,18 +38,18 @@ class GameScene: SKScene {
         background.size = frame.size
         print(background.zPosition)
         addChild(background)
-        
+
         let tapMethod = #selector(GameScene.handleTap(tapGesture:))
         let tapGesture = UITapGestureRecognizer(target: self, action: tapMethod)
         view.addGestureRecognizer(tapGesture)
-        
+
         let panMethod = #selector(GameScene.handlePan(panGesture:))
         let panGesture = UIPanGestureRecognizer(target: self, action: panMethod)
         view.addGestureRecognizer(panGesture)
-        
+
         startGame()
     }
-    
+
     func startGame() {
         state = .waiting
         ballCount = 1
@@ -59,7 +58,8 @@ class GameScene: SKScene {
         spawnBlocks()
         spawnPowerUps()
     }
-    
+
+    // Randomly generates blocks on the top row
     func spawnBlocks() {
         let maxHealth = ballCount + 10
         let minHealth = ballCount
@@ -68,7 +68,7 @@ class GameScene: SKScene {
         print(totalBlocks)
         var blocksSpawned = 0
         var x = 0
-        while(blocksSpawned < totalBlocks) {
+        while blocksSpawned < totalBlocks {
             let spawnChance = arc4random_uniform(8)+1
             print("spawnChance: " + String(spawnChance))
             if spawnChance <= totalBlocks && isEmpty(at: x) {
@@ -79,10 +79,11 @@ class GameScene: SKScene {
             x = (x+1) % 8
         }
     }
-    
-    func spawnBlock(at x: Int, min minHealth: Int, max maxHealth: Int) {
+
+    // Creates a new Block at a given X position and randomly calculates its health
+    func spawnBlock(at gridX: Int, min minHealth: Int, max maxHealth: Int) {
         let block = Block(color: UIColor.blue, size: CGSize(width: 50, height: 50))
-        block.gridX = x
+        block.gridX = gridX
         block.updatePosition(inside: frame)
         block.zPosition = 5
         block.health = Int(arc4random_uniform(UInt32(maxHealth-minHealth+1))) + minHealth
@@ -90,7 +91,8 @@ class GameScene: SKScene {
         blocks.append(block)
         addChild(block)
     }
-    
+
+    // Randomly creates new powerUp at any available locations
     func spawnPowerUps() {
         for x in 0..<8 {
             if isEmpty(at: x) {
@@ -101,124 +103,137 @@ class GameScene: SKScene {
             }
         }
     }
-    
-    func spawnNewBallPowerUp(at x: Int) {
+
+    // Creates a New Ball PowerUp at a given x position
+    func spawnNewBallPowerUp(at gridX: Int) {
         let powerUp = PowerUp(color: UIColor.green, size: CGSize(width: 20, height: 20))
         powerUp.type = .newBall
-        powerUp.gridX = x
+        powerUp.gridX = gridX
         powerUp.zPosition = 5
         powerUp.updatePosition(inside: frame)
         addChild(powerUp)
         powerUps.append(powerUp)
     }
-    
-    
-    func isEmpty(at x: Int) -> Bool {
+
+    // Checks if the x position in the top row is empty
+    func isEmpty(at gridX: Int) -> Bool {
         for block in blocks {
-            if block.gridY == 0 && block.gridX == x {
+            if block.gridY == 0 && block.gridX == gridX {
                 return false
             }
         }
-        
+
         for powerUp in powerUps {
-            if powerUp.gridY == 0 && powerUp.gridX == x {
+            if powerUp.gridY == 0 && powerUp.gridX == gridX {
                 return false
             }
         }
-        
+
         return true
     }
-    
+
+    // Creates a New Ball
     func spawnBall() {
-        let ball = Ball(color: UIColor.red, size: CGSize(width: 20, height: 20))
-        ball.position = CGPoint(x: startPosition, y: 10)
+        let ball = Ball(color: UIColor.red, size: CGSize(width: 30, height: 30))
+        ball.position = CGPoint(x: startPosition, y: 15)
         ball.zPosition = 10
         ball.xVel = startXVel
         ball.yVel = startYVel
+        ball.zRotation = atan2(startYVel, startXVel)
+        ball.initAnimationFrames()
+        ball.animateBall()
         addChild(ball)
         balls.append(ball)
     }
-    
+
+    // Moves Balls and checks for collision
     func updateBalls() {
         var isBallMoving = false
         for ball in balls {
             ball.position.x += ball.xVel
             ball.position.y += ball.yVel
-            var flipXVel = false
-            var flipYVel = false
-            
-            if ball.frame.maxX >= frame.maxX || ball.frame.minX <= 0 {
-                flipXVel = true
-            }
-            
-            if ball.frame.maxY >= frame.maxY {
-                flipYVel = true
-            }
-            
-            for powerUp in powerUps {
-                if ball.intersects(powerUp) {
-                    //activate Power Up
-                    if powerUp.type == .newBall {
-                        ballCount += 1
-                    }
-                    
-                    powerUp.removeFromParent()
-                    if let index = powerUps.index(of: powerUp) {
-                        powerUps.remove(at: index)
-                    }
-                }
-            }
-            
-            for block in blocks {
-                if ball.intersects(block) {
-                    block.health -= 1
-                    block.updateLabel()
-                    //collision is very buggy
-                    if ball.position.y > block.frame.maxY{
-                        flipYVel = true
-                    }
-                    if ball.position.y < block.frame.minY {
-                        flipYVel = true
-                    }
-                    
-                    if ball.position.x > block.frame.maxX {
-                        flipXVel = true
-                    }
-                    if ball.position.x < block.frame.minX {
-                        flipXVel = true
-                    }
-                    if block.health == 0 {
-                        block.removeFromParent()
-                        if let index = blocks.index(of: block) {
-                            blocks.remove(at: index)
-                        }
-                    }
-                }
-            }
-            
-            if flipXVel {
-                ball.xVel *= -1
-            }
-            if flipYVel {
-                ball.yVel *= -1
-            }
-            
+
+            powerUpCollision(with: ball)
+            blockCollision(with: ball)
+
+            ball.zRotation = atan2(ball.yVel, ball.xVel)
+
             if ball.frame.minY <= 0 {
                 ball.xVel = 0
                 ball.yVel = 0
-                ball.position.y = 10
+                ball.position.y = 15
             }
-            
+
             if ball.xVel != 0 && ball.yVel != 0 {
                 isBallMoving = true
             }
         }
-        
+
         if !isBallMoving {
             state = .ended
         }
     }
-    
+
+    // Checks if a given ball collides with any powerUps
+    func powerUpCollision(with ball: Ball) {
+        for powerUp in powerUps {
+            if ball.intersects(powerUp) {
+                //activate Power Up
+                if powerUp.type == .newBall {
+                    ballCount += 1
+                }
+
+                powerUp.removeFromParent()
+                if let index = powerUps.index(of: powerUp) {
+                    powerUps.remove(at: index)
+                }
+            }
+        }
+    }
+
+    // Checks if a given ball collides with any blocks and updates its velocity
+    func blockCollision(with ball: Ball) {
+        var flipXVel = false
+        var flipYVel = false
+
+        // Check if the ball has reached the edge of the screen
+        if ball.frame.maxX >= frame.maxX || ball.frame.minX <= 0 {
+            flipXVel = true
+        }
+        if ball.frame.maxY >= frame.maxY {
+            flipYVel = true
+        }
+
+        for block in blocks {
+            if ball.intersects(block) {
+                block.health -= 1
+                block.updateLabel()
+                // Checks how the ball should bounce off the block
+                //   very buggy, needs to be updated
+                if ball.position.y > block.frame.maxY || ball.position.y < block.frame.minY {
+                    flipYVel = true
+                }
+                if ball.position.x > block.frame.maxX || ball.position.x < block.frame.minX {
+                    flipXVel = true
+                }
+                if block.health == 0 {
+                    block.removeFromParent()
+                    if let index = blocks.index(of: block) {
+                        blocks.remove(at: index)
+                    }
+                }
+            }
+        }
+
+        if flipXVel {
+            ball.xVel *= -1
+        }
+        if flipYVel {
+            ball.yVel *= -1
+        }
+    }
+
+    // Start the next round of the game
     func nextRound() {
         state = .waiting
         round += 1
@@ -230,6 +245,7 @@ class GameScene: SKScene {
         }
         for block in blocks {
             block.gridY += 1
+            //Check if any Blocks have reached the bottom of the screen
             if block.gridY == 13 {
                 state = .gameOver
             }
@@ -242,7 +258,7 @@ class GameScene: SKScene {
         spawnBlocks()
         spawnPowerUps()
     }
-    
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         if state == .running {
@@ -250,19 +266,17 @@ class GameScene: SKScene {
                 spawnBall()
             }
             updateBalls()
-        }
-        else if state == .ended {
+        } else if state == .ended {
             nextRound()
-        }
-        else if state == .gameOver {
+        } else if state == .gameOver {
             gameOver()
         }
     }
-    
+
     func gameOver() {
         goNext(scene: SplashScene()) // Go Back to the Splash Screen
     }
-    
+
     @objc func handleTap(tapGesture: UITapGestureRecognizer) {
 //        let tapLocation = tapGesture.location(in: tapGesture.view)
 //        print(tapLocation)
@@ -273,30 +287,27 @@ class GameScene: SKScene {
 //        startYVel = Ball.maxSpeed * cos(theta)
 //        spawnBall()
     }
-    
+
     @objc func handlePan(panGesture: UIPanGestureRecognizer) {
         if state == .waiting {
             if panGesture.state == .began {
                 panOrigin = panGesture.location(in: panGesture.view)
                 //Create targeter
-            }
-            else if panGesture.state == .changed {
+            } else if panGesture.state == .changed {
                 //Update targeter
-            }
-            else if panGesture.state == .ended {
+            } else if panGesture.state == .ended {
                 // shoot ball
                 let panEndLocation = panGesture.location(in: panGesture.view)
                 let dY = panEndLocation.y - panOrigin.y
                 let dX = panOrigin.x - panEndLocation.x
-                let theta = atan(dX/dY)
-                startXVel = Ball.maxSpeed * sin(theta)
-                startYVel = Ball.maxSpeed * cos(theta)
-                //spawnBall()
+                let theta = atan2(dY, dX)
+                startXVel = Ball.maxSpeed * cos(theta)
+                startYVel = Ball.maxSpeed * sin(theta)
                 state = .running
             }
         }
     }
-    
+
     func goNext(scene: SKScene) {
         // view is an SKView? so we have to check
         if let view = self.view {
