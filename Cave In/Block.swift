@@ -10,9 +10,11 @@ import SpriteKit
 
 class Block: SKSpriteNode {
     var health = 0
+    var maxHealth = 0
     var gridX = 0
     var gridY = 0
     var healthLabel = SKLabelNode(fontNamed: "Arial")
+    var textures : [SKTexture] = []
 
     /*
         grid coords -> real coords
@@ -39,8 +41,34 @@ class Block: SKSpriteNode {
         healthLabel.verticalAlignmentMode = .center
         updateLabel()
     }
+    
+    func initTextures() {
+        for i in 0...4 {
+            textures.append(SKTexture(imageNamed: "Block000\(i)"))
+        }
+        maxHealth = health
+        updateTexture()
+    }
 
     func updateLabel() {
         healthLabel.text = String(health)
+    }
+    
+    func updateTexture() {
+        if health > 4*maxHealth/5 {
+            texture = textures[0]
+        }
+        else if health > 3*maxHealth/5 {
+            texture = textures[1]
+        }
+        else if health > 2*maxHealth/5 {
+            texture = textures[2]
+        }
+        else if health > 1*maxHealth/5 {
+            texture = textures[3]
+        }
+        else {
+            texture = textures[4]
+        }
     }
 }

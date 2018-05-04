@@ -16,6 +16,11 @@ enum GameState {
     case gameOver
 }
 
+struct Score {
+    static var hiScore: UInt32 = 0
+    static var score: UInt32 = 0
+}
+
 class GameScene: SKScene {
     var ballCount = 1
     var startPosition: CGFloat = 0
@@ -27,7 +32,12 @@ class GameScene: SKScene {
     var panOrigin = CGPoint()
     var round: UInt32 = 1
     var state = GameState.ended
-
+    var targeter : SKShapeNode = SKShapeNode()
+    var wait = false
+    var ballLabel = SKLabelNode()
+    var roundLabel = SKLabelNode()
+    //Add black bar for label
+    
     override func didMove(to view: SKView) {
         anchorPoint = CGPoint.zero
         let background = SKSpriteNode(imageNamed: "background")
@@ -46,7 +56,27 @@ class GameScene: SKScene {
         let panMethod = #selector(GameScene.handlePan(panGesture:))
         let panGesture = UIPanGestureRecognizer(target: self, action: panMethod)
         view.addGestureRecognizer(panGesture)
+        
+        let barSize = CGSize(width: frame.width, height: 30)
+        let bottomBar = SKSpriteNode(color: UIColor.black, size: barSize)
+        bottomBar.zPosition = 20
+        bottomBar.position = CGPoint(x: xMid, y: 15)
+        addChild(bottomBar)
 
+        roundLabel.text = "Round: 1"
+        roundLabel.fontName = "Arial"
+        roundLabel.fontSize = 18
+        roundLabel.zPosition = 25
+        roundLabel.position = CGPoint(x: 40, y: 8)
+        addChild(roundLabel)
+        
+        ballLabel.text = "Balls: 1"
+        ballLabel.fontName = "Arial"
+        ballLabel.fontSize = 18
+        ballLabel.zPosition = 25
+        ballLabel.position = CGPoint(x: frame.maxX - 60, y: 8)
+        addChild(ballLabel)
+        
         startGame()
     }
 
@@ -88,6 +118,7 @@ class GameScene: SKScene {
         block.zPosition = 5
         block.health = Int(arc4random_uniform(UInt32(maxHealth-minHealth+1))) + minHealth
         block.initLabel()
+        block.initTextures()
         blocks.append(block)
         addChild(block)
     }
@@ -173,6 +204,13 @@ class GameScene: SKScene {
             state = .ended
         }
     }
+    
+    // Updates every block in the Scene
+    func updateBlocks() {
+        for block in blocks {
+            block.updateTexture()
+        }
+    }
 
     // Checks if a given ball collides with any powerUps
     func powerUpCollision(with ball: Ball) {
@@ -208,14 +246,50 @@ class GameScene: SKScene {
             if ball.intersects(block) {
                 block.health -= 1
                 block.updateLabel()
-                // Checks how the ball should bounce off the block
-                //   very buggy, needs to be updated
-                if ball.position.y > block.frame.maxY || ball.position.y < block.frame.minY {
+                run(SKAction.playSoundFileNamed("BlockHit.wav", waitForCompletion: false))
+                
+                // Uses the balls velocity to determine how the ball hit the block and how it should bounce
+                if ball.xVel == 0 {
                     flipYVel = true
                 }
-                if ball.position.x > block.frame.maxX || ball.position.x < block.frame.minX {
+                else if ball.yVel == 0 {
                     flipXVel = true
                 }
+                else if ball.xVel > 0 {
+                    let m = ball.yVel/ball.xVel
+                    var dy = CGFloat()
+                    if ball.yVel > 0 {
+                        dy = block.frame.minY - ball.frame.maxY
+                    }
+                    else {
+                        dy = block.frame.maxY - ball.frame.minY
+                    }
+                    let dx = dy/m
+                    if ball.frame.maxX + dx > block.frame.minX {
+                        flipYVel = true
+                    }
+                    else {
+                        flipXVel = true
+                    }
+                }
+                else {
+                    let m = ball.yVel/ball.xVel
+                    var dy = CGFloat()
+                    if ball.yVel > 0 {
+                        dy = block.frame.minY - ball.frame.maxY
+                    }
+                    else {
+                        dy = block.frame.maxY - ball.frame.minY
+                    }
+                    let dx = dy/m
+                    if ball.frame.minX + dx > block.frame.maxX {
+                        flipXVel = true
+                    }
+                    else {
+                        flipYVel = true
+                    }
+                }
+                
                 if block.health == 0 {
                     block.removeFromParent()
                     if let index = blocks.index(of: block) {
@@ -237,6 +311,7 @@ class GameScene: SKScene {
     func nextRound() {
         state = .waiting
         round += 1
+        roundLabel.text = "Round: \(round)"
         for ball in balls {
             ball.removeFromParent()
             if let index = balls.index(of: ball) {
@@ -259,11 +334,15 @@ class GameScene: SKScene {
         spawnPowerUps()
     }
 
+    // Called before each frame is rendered
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
+        updateBlocks()
         if state == .running {
-            if balls.count < ballCount {
+            if balls.count < ballCount && !wait {
                 spawnBall()
+                wait = true
+            } else {
+                wait = false
             }
             updateBalls()
         } else if state == .ended {
@@ -274,7 +353,12 @@ class GameScene: SKScene {
     }
 
     func gameOver() {
-        goNext(scene: SplashScene()) // Go Back to the Splash Screen
+        // Save score
+        Score.score = round
+        if Score.score > Score.hiScore {
+            Score.hiScore = Score.score
+        }
+        goNext(scene: GameOverScene()) // Go to Game Over Scene
     }
 
     @objc func handleTap(tapGesture: UITapGestureRecognizer) {
@@ -292,9 +376,17 @@ class GameScene: SKScene {
         if state == .waiting {
             if panGesture.state == .began {
                 panOrigin = panGesture.location(in: panGesture.view)
-                //Create targeter
+                addChild(targeter)
+                targeter.strokeColor = UIColor.white
+                targeter.zPosition = 8
             } else if panGesture.state == .changed {
-                //Update targeter
+                let currentLocation = panGesture.location(in: panGesture.view)
+                let dY = currentLocation.y - panOrigin.y
+                let dX = panOrigin.x - currentLocation.x
+                let path = CGMutablePath()
+                path.move(to: CGPoint(x: startPosition, y: 0))
+                path.addLine(to: CGPoint(x: startPosition + dX, y: dY))
+                targeter.path = path
             } else if panGesture.state == .ended {
                 // shoot ball
                 let panEndLocation = panGesture.location(in: panGesture.view)
@@ -304,6 +396,7 @@ class GameScene: SKScene {
                 startXVel = Ball.maxSpeed * cos(theta)
                 startYVel = Ball.maxSpeed * sin(theta)
                 state = .running
+                targeter.removeFromParent()
             }
         }
     }
@@ -321,8 +414,6 @@ class GameScene: SKScene {
             let reveal = SKTransition.crossFade(withDuration: 5)
             view.presentScene(scene, transition: reveal)
             view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
         }
     }
 }

@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01F810162089003800EEE8EF /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F810152089003800EEE8EF /* GameOverScene.swift */; };
+		01F8101A2089140A00EEE8EF /* BlockHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 01F810192089140900EEE8EF /* BlockHit.wav */; };
+		01F8101E20891D8C00EEE8EF /* BallFlying.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 01F8101D20891D8C00EEE8EF /* BallFlying.atlas */; };
 		F853C8F12065553D002B6C25 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853C8F02065553D002B6C25 /* Block.swift */; };
 		F853C8F3206555B8002B6C25 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853C8F2206555B8002B6C25 /* Ball.swift */; };
 		F853C8F520655636002B6C25 /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853C8F420655636002B6C25 /* PowerUp.swift */; };
-		F853C8F7206D77F3002B6C25 /* BallFlying.atlas in Resources */ = {isa = PBXBuildFile; fileRef = F853C8F6206D77F2002B6C25 /* BallFlying.atlas */; };
 		F8AE978C2046170D0017E4F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AE978B2046170D0017E4F9 /* AppDelegate.swift */; };
 		F8AE978E2046170D0017E4F9 /* SplashScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F8AE978D2046170D0017E4F9 /* SplashScene.sks */; };
 		F8AE97902046170D0017E4F9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F8AE978F2046170D0017E4F9 /* Actions.sks */; };
@@ -42,10 +44,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01F810152089003800EEE8EF /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		01F810192089140900EEE8EF /* BlockHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = BlockHit.wav; path = "../../../Downloads/Game Design/BlockHit.wav"; sourceTree = "<group>"; };
+		01F8101D20891D8C00EEE8EF /* BallFlying.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = BallFlying.atlas; sourceTree = "<group>"; };
 		F853C8F02065553D002B6C25 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F853C8F2206555B8002B6C25 /* Ball.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		F853C8F420655636002B6C25 /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
-		F853C8F6206D77F2002B6C25 /* BallFlying.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = BallFlying.atlas; path = ../../BallFlying.atlas; sourceTree = "<group>"; };
 		F8AE97882046170D0017E4F9 /* CaveIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaveIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8AE978B2046170D0017E4F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8AE978D2046170D0017E4F9 /* SplashScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SplashScene.sks; sourceTree = "<group>"; };
@@ -113,11 +117,13 @@
 		F8AE978A2046170D0017E4F9 /* Cave In */ = {
 			isa = PBXGroup;
 			children = (
-				F853C8F6206D77F2002B6C25 /* BallFlying.atlas */,
+				01F8101D20891D8C00EEE8EF /* BallFlying.atlas */,
 				F8AE978B2046170D0017E4F9 /* AppDelegate.swift */,
+				01F810192089140900EEE8EF /* BlockHit.wav */,
 				F8AE978D2046170D0017E4F9 /* SplashScene.sks */,
 				F8AE978F2046170D0017E4F9 /* Actions.sks */,
 				F8AE97912046170D0017E4F9 /* GameScene.swift */,
+				01F810152089003800EEE8EF /* GameOverScene.swift */,
 				F8C15298204F51740005546A /* SplashScene.swift */,
 				F8AE97932046170D0017E4F9 /* GameViewController.swift */,
 				F8AE97952046170E0017E4F9 /* Main.storyboard */,
@@ -212,7 +218,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = nKlacik;
 				TargetAttributes = {
 					F8AE97872046170D0017E4F9 = {
@@ -257,9 +263,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8AE97972046170E0017E4F9 /* Main.storyboard in Resources */,
+				01F8101A2089140A00EEE8EF /* BlockHit.wav in Resources */,
 				F8AE978E2046170D0017E4F9 /* SplashScene.sks in Resources */,
 				F8AE97992046170E0017E4F9 /* Assets.xcassets in Resources */,
-				F853C8F7206D77F3002B6C25 /* BallFlying.atlas in Resources */,
+				01F8101E20891D8C00EEE8EF /* BallFlying.atlas in Resources */,
 				F8AE979C2046170E0017E4F9 /* LaunchScreen.storyboard in Resources */,
 				F8AE97902046170D0017E4F9 /* Actions.sks in Resources */,
 			);
@@ -288,6 +295,7 @@
 			files = (
 				F853C8F3206555B8002B6C25 /* Ball.swift in Sources */,
 				F853C8F520655636002B6C25 /* PowerUp.swift in Sources */,
+				01F810162089003800EEE8EF /* GameOverScene.swift in Sources */,
 				F8AE97922046170D0017E4F9 /* GameScene.swift in Sources */,
 				F8C15299204F51740005546A /* SplashScene.swift in Sources */,
 				F853C8F12065553D002B6C25 /* Block.swift in Sources */,
@@ -361,6 +369,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -368,6 +377,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -418,6 +428,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -425,6 +436,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
